@@ -1,0 +1,42 @@
+# Byte-compiled Python files
+*.py[cod]
+
+# Log files
+*.log
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Virtual environment files
+env/
+venv/
+ENV/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.vscode/
+*.idea/
+
+# OS files
+.DS_Store  # macOS
+Thumbs.db  # Windows
+
+# Test and coverage files
+.coverage
+.tox/
+
+# Distribution and build files
+build/
+dist/
+*.egg-info/
+
+# Other files
+*.orig
+*.rej
+*.bak
+
+# Environment variables
+.env
+
