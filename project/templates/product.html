@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Product - Ultra Electronics{% endblock %}
+
+{% block content %}
+<img src="{%static 'images/gg.jng'%}" alt="Background"
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100vh; object-fit: cover; z-index: -1;">
+<div class="container">
+    <h1>Gadget</h1>
+
+    <!-- Ceiling Cassette AC Section -->
+    <div class="product">
+        {% if product %}
+        <img src="{%static 'images/Ac1.jng'%}" alt="Ceiling Cassette AC" />
+        <div class="product-info">
+            <h2>{{product.name}}</h2>
+            <p>{{product.info}}</p>
+            <p><strong>Description:</strong> Ceiling cassette AC with R410a gas and 360° airflow.</p>
+            <div class="warranty-card">Warranty: {{product.warranty}} Months</div>
+        </div>
+        {% else %}
+        <p>No polls are available.</p>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}

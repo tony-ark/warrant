@@ -1,0 +1,278 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - TechZone</title>
+    <link href="fonts/font-awesome.min.css" rel="stylesheet"> <!-- Local Font Awesome -->
+    <link href="fonts/Inter.css" rel="stylesheet"> <!-- Local Google Font -->
+    <link rel="stylesheet" href="{% static 'css/cont.css' %}">
+     <script src="{% static 'js/cont.js'%}"></script>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-icon">
+                <i class="fas fa-microchip"></i>
+                <div class="icon-glow"></div>
+            </div>
+            <h1 class="hero-title">TechZone Support</h1>
+            <p class="hero-subtitle">Your Electronics & Appliances Experts</p>
+            <p class="hero-description">Get help with your tech needs</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Support</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">50K+</span>
+                    <span class="stat-label">Happy Customers</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">99%</span>
+                    <span class="stat-label">Satisfaction</span>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="contact-info-section">
+        <div class="container">
+            <div class="contact-cards">
+                <div class="contact-card">
+                    <div class="card-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email Support</h3>
+                    <p>support@techzone.com</p>
+                    <div class="card-glow"></div>
+                </div>
+                <div class="contact-card">
+                    <div class="card-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>Phone Support</h3>
+                    <p>1-800-TECH-ZONE</p>
+                    <div class="card-glow"></div>
+                </div>
+                <div class="contact-card">
+                    <div class="card-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Support Hours</h3>
+                    <p>Mon-Fri 8AM-8PM EST</p>
+                    <div class="card-glow"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="form-section">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Submit a Support Request</h2>
+                    <p>Our expert team is here to help you with any technical issues</p>
+                </div>
+                <form class="contact-form" action="#" method="post">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email Address <span class="required">*</span></label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-envelope input-icon"></i>
+                                <input type="email" name="email" required placeholder="your.email@example.com">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Product Category</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-tag input-icon"></i>
+                                <select name="category">
+                                    <option value="">Select a category</option>
+                                    <option value="smartphones">📱 Smartphones & Tablets</option>
+                                    <option value="laptops">💻 Laptops & Computers</option>
+                                    <option value="appliances">🏠 Home Appliances</option>
+                                    <option value="audio">🎧 Audio & Headphones</option>
+                                    <option value="gaming">🎮 Gaming Devices</option>
+                                    <option value="accessories">🔌 Accessories</option>
+                                    <option value="other">❓ Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Subject <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-pen input-icon"></i>
+                            <input type="text" name="subject" required placeholder="Brief description of your issue">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Description <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-comment input-icon"></i>
+                            <textarea name="description" required rows="6" placeholder="Please provide detailed information about your issue, including model numbers, error messages, and steps you've already tried."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-submit">
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text">
+                                <i class="fas fa-paper-plane"></i>Submit Request
+                            </span>
+                            <div class="btn-glow"></div>
+                        </button>
+                    </div>
+                </form>
+                <p class="form-note">Our support team will respond within 24 hours during business days.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Support Categories -->
+    <div class="support-categories">
+        <div class="container">
+            <h2 class="section-title">How We Can Help</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>Technical Support</h3>
+                    <p>Device setup, troubleshooting, and repairs</p>
+                    <div class="category-hover"></div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>Order Support</h3>
+                    <p>Order status, shipping, and delivery issues</p>
+                    <div class="category-hover"></div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Warranty Claims</h3>
+                    <p>Product warranties and replacement services</p>
+                    <div class="category-hover"></div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Product Training</h3>
+                    <p>Learn how to use your new devices effectively</p>
+                    <div class="category-hover"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What's included in the warranty?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Our warranty covers manufacturing defects and hardware failures for 1-3 years depending on the product. Software issues and accidental damage require separate coverage.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How long does repair service take?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most repairs are completed within 5-7 business days. Complex issues may take up to 14 days. We'll provide updates throughout the process.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Do you offer installation services?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! We offer professional installation for major appliances, home theater systems, and smart home devices. Schedule during checkout or contact us separately.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TechZone</h3>
+                    <p>Your trusted partner for electronics and appliances since 2010.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="gadget_gallery.html">Products</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="gadget_gallery.html">TELEVISION</a></li>
+                        <li><a href="gadget_gallery.html">AIR CONDITION</a></li>
+                        <li><a href="gadget_gallery.html">SMART PHONE</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <p>Stay updated with our latest products and offers</p>
+                    <div class="newsletter">
+                        <input type="email" placeholder="Enter your email">
+                        <button><i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TechZone. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Local JavaScript -->
+</body>
+</html>

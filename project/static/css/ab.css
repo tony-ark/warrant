@@ -1,0 +1,183 @@
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('../images/gg.jpg');
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Header Section */
+.header {
+    position: relative;
+    background: url('../images/gg.jpg') no-repeat center center/cover;
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.header h1 {
+    font-size: 3.5rem;
+    z-index: 2;
+}
+
+.header p {
+    font-size: 1.5rem;
+    opacity: 0.9;
+    z-index: 2;
+}
+
+/* About Section */
+.about {
+    position: relative;
+    overflow: hidden;
+}
+
+.about-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.about-header h2 {
+    font-size: 2.5rem;
+    color: #1868ae;
+}
+
+.about-header p {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Content */
+.content {
+    display: flex;
+    justify-content: space-around; /* Aligns cards evenly */
+    flex-wrap: wrap; /* Allows wrapping on small screens */
+    margin: 0 -20px; /* Prevent overflow */
+}
+
+.card {
+    flex: 1;
+    min-width: 250px; /* Minimum width for cards */
+    max-width: 400px; /* Maximum width for cards */
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 20px; /* Space between cards */
+}
+
+.card-icon {
+    margin-bottom: 15px;
+}
+
+.card-icon img {
+    width: 50px;
+    height: 50px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+    font-size: 1.8rem;
+    color: #1868ae;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Subscribe Section */
+.subscribe {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #e7f2f8;
+    border-radius: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #1868ae;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button a {
+    color: white;
+    text-decoration: none;
+}
+
+button:hover {
+    background-color: #0f4c81;
+}
+
+/* Footer Section */
+.footer {
+    margin-top: 50px;
+    background: url('../images/footer-bg.jpg') no-repeat center center/cover; /* Add your footer image here */
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    position: relative; /* Ensure positioning for overlay */
+}
+
+.footer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dark overlay for contrast */
+    z-index: 1; /* Place overlay above background */
+}
+
+.footer p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    position: relative; /* Ensure text appears above overlay */
+    z-index: 2; /* Bring text above overlay */
+}
+
+.footer a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: aqua;
+    position: relative; /* Ensure links appear above overlay */
+    z-index: 2; /* Bring links above overlay */
+}

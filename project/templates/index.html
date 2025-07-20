@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Home - Electronic Appliances{% endblock %}
+
+{% block content %}
+<div class="container">
+    <main class="row">
+        <section class="col hero">
+            <h1>Welcome to TECHZONE</h1>
+            <h2>Your Ultimate Destination for Cutting-Edge Technology</h2>
+            <p>
+                Step into the future with TECHZONE, where innovation meets lifestyle! Explore our curated selection of
+                the latest
+                <strong>Smart TVs</strong>, energy-efficient <strong>Air Conditioners</strong>, and high-performance
+                <strong>Smartphones</strong>.
+                Transform your home into a modern oasis and stay connected with the world like never before.
+            </p>
+
+            <p>
+                <strong> Join us </strong> in redefining your living space with the best in tech. Discover amazing deals
+                and exclusive offers today!
+            </p>
+            <a href="{% url 'gallery'%}"><button>SHOP NOW</button></a>
+        </section>
+        <aside class="col categories">
+            <div class="card">
+                <h5>TELEVISION</h5>
+                <p>Experience stunning visuals with our premium TV collection.</p>
+            </div>
+            <div class="card">
+                <h5>AIR CONDITION</h5>
+                <p>Energy-efficient cooling solutions for your comfort.</p>
+            </div>
+            <div class="card">
+                <h5>SMART PHONE</h5>
+                <p>Latest smartphones with cutting-edge technology.</p>
+            </div>
+
+        </aside>
+    </main>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sign Up</title>
+</head>
+
+<body>
+    <div>
+        {% if action == 'sign_in' %}
+        <div>
+            <h2>Sign In</h2>
+            <form method="post" action="{% url 'auth' %}">
+                {% csrf_token %}
+                <label for="email">Email:</label>
+                <input type="email" name="email" required><br>
+                <input type="hidden" name="action" value="sign_in">
+                <button type="submit">Sign In</button>
+            </form>
+            <form action="{% url 'sign' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="sign_up">
+                <p>Don't have an account? <button type="submit">Sign Up</button></p>
+            </form>
+        </div>
+        {% else %}
+        <div>
+            <h2>Sign Up</h2>
+            <form method="post" action="{% url 'auth' %}">
+                {% csrf_token %}
+                <label for="name">Name:</label>
+                <input type="text" name="name" required><br>
+                <input type="hidden" name="action" value="sign_up">
+
+
+                <label for="email">Email:</label>
+                <input type="email" name="email" required><br>
+
+                <label for="phone">Phone:</label>
+                <input type="text" name="phone" required><br>
+
+                <label for="address">Address:</label>
+                <textarea name="address" required></textarea><br>
+
+                <button type="submit">Sign Up</button>
+            </form>
+            <form action="{% url 'sign' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="sign_in">
+                <p>Already have an account? <button type="submit">Sign In</button></p>
+            </form>
+        </div>
+        {% endif %}
+
+
+
+    </div>
+
+
+</body>
+
+</html>

@@ -10,10 +10,20 @@ class Product(models.Model):
     warranty = models.IntegerField()
 
 class Client(models.Model):
-    client_name = models.CharField(max_length=255)
-    location = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=15)
+    address = models.TextField()
+
+    def __str__(self):
+        return self.name
 
 class Claim(models.Model):
     claim_date = models.DateField()
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+class Order(models.Model):
+    order_date = models.DateField()
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

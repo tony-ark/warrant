@@ -1,0 +1,91 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    color: #333;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 30px;
+    color: #2c3e50; /* Darker blue-gray for the main title */
+}
+
+.product {
+    display: flex;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
+    transition: transform 0.3s;
+}
+
+.product:hover {
+    transform: scale(1.02);
+}
+
+.product img {
+    width: 250px;
+    height: auto;
+    object-fit: contain;
+}
+
+
+.product-info {
+    padding: 20px;
+    flex: 1;
+    background-color: #ecf0f1; /* Light gray background for product info */
+}
+
+.product-info h2 {
+    margin-top: 0;
+    color: #2980b9; /* Bright blue for product title */
+}
+
+.product-info h3 {
+    margin: 5px 0 15px;
+    color: #8e44ad; /* Purple for the subtitle */
+    font-weight: normal;
+}
+
+.product-info p,
+.product-info ul {
+    color: #34495e; /* Dark gray for general text */
+    line-height: 1.6;
+    margin: 0 0 15px;
+}
+
+.product-info ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.product-info li {
+    margin: 5px 0;
+    color: #16a085; /* Teal for list items */
+}
+
+.cta {
+    font-weight: bold;
+    color: #e74c3c; /* Red for call to action */
+    font-size: 1.1em;
+}
+
+.warranty-card {
+    background-color: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 15px;
+    display: inline-block;
+}

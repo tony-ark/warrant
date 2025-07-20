@@ -1,0 +1,32 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <img src="{% static 'images/logo.png' %}" alt="Logo">
+    <header class="navbar">
+        <nav>
+            <ul class="nav-left">
+                <li class="active"><a href="">HOME</a></li>
+                <li><a href="{% url 'about'%}">ABOUT</a></li>
+                <li><a href="{% url 'gallery'%}">GALLERY</a></li>
+            </ul>
+            <ul class="nav-right">
+                <li><a href="{% url 'contact'%}">CONTACT US</a></li>
+                {% if request.session.client_id %}
+                <li><p>Welcome, client #{{ request.session.client_id }}!</p></li>
+                {% else %}
+                <li><a href="{% url 'sign' %}">Sign</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    {% block content %}{% endblock %}
+</body>
+
+</html>

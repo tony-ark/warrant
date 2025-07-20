@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Gallery - Electronic Appliances{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1>TECHZONE</h1>
+        <p>Discover cutting-edge TVs, efficient air conditioners, and latest smartphones from top global brands.</p>
+        <a href="#categories" class="cta-button">
+            <span class="icon">🛍️</span>
+            Explore Collection
+        </a>
+    </div>
+</section>
+
+<!-- Enhanced Category Navigation -->
+<nav class="category-nav" id="categories">
+    <div class="category-nav-content">
+        <a href="#tvs" class="category-tab active" onclick="showCategory('tvs', this)">
+            <span class="icon">📺</span>
+            Smart TVs
+        </a>
+        <a href="#ac" class="category-tab" onclick="showCategory('ac', this)">
+            <span class="icon">❄️</span>
+            Air Conditioners
+        </a>
+        <a href="#phones" class="category-tab" onclick="showCategory('phones', this)">
+            <span class="icon">📱</span>
+            Smart Phones
+        </a>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="main-content">
+    <!-- Smart TVs Section -->
+    <div id="tvs-section" class="category-section">
+        <div class="category-header">
+            <div class="category-icon tv-icon">
+                <span class="icon">📺</span>
+            </div>
+            <div>
+                <h2 class="category-heading">Smart TVs</h2>
+                <p class="category-description">Experience stunning visuals with our premium TV collection.</p>
+            </div>
+        </div>
+        <div class="product-shelf">
+            {% if product_list %}
+            <ul>
+                {% for product in product_list %}
+                <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="{%static 'images/Sam1.webp'%}" class="product-image">
+                    </div>
+
+                    <p class="product-brand">{{product.brand}}</p>
+                    <h3 class="product-title">{{product.name}}</h3>
+                    <p class="product-description">{{product.info}}</p>
+                    <p class="product-price">GH₵ {{product.price}}</p>
+                    <div class="button-group">
+                        <a href="/product/{{product.id}}" class="sample-button">
+                            <span class="icon">👁️</span> View Details
+                        </a>
+                        <form action="{% url 'purchase' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="product_id" value="{{ product.id }}">
+                        <button type="submit">
+                            <span class="icon">🛒</span> Buy
+                        </button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>No polls are available.</p>
+            {% endif %}
+        </div>
+    </div>
+</main>
+{% endblock %}
