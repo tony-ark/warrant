@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 from django.http import HttpResponse
 from . import models
@@ -8,48 +8,100 @@ from catboost import CatBoostClassifier
 import numpy as np
 
 # Load the model once (at module level, not inside the view)
-catboost_model = CatBoostClassifier()
-catboost_model.load_model('catboost_model.cbm')
+claim_catboost_model = CatBoostClassifier()
+claim_catboost_model.load_model('claim_catboost_model.cbm')
+defect_catboost_model = CatBoostClassifier()
+defect_catboost_model.load_model('defect_catboost_model.cbm')
 
 def predict_claim_likelihood(request, product_id):
-    try:
-        client = models.session.get('client_id')
-        product = models.Product.objects.get(id=product_id)
-    except (models.Client.DoesNotExist, models.Product.DoesNotExist):
-        return HttpResponse("Client or Product not found", status=404)
+	try:
+		client = models.session.get('client_id')
+		product = models.Product.objects.get(id=product_id)
+	except (models.Client.DoesNotExist, models.Product.DoesNotExist):
+		return HttpResponse("Client or Product not found", status=404)
 
-    # Example: Prepare features for prediction
-    # You must match the features used during training!
-    client_purchase_count = models.Order.objects.filter(client_id=client.id).count()
-    client_claim_count = models.Claim.objects.filter(client_id=client.id).count()
-    product_info_length = len(product.info)
-    order_date = timezone.now()  # Assuming you want to use the current date
-    days_since_purchase = (timezone.now() - order_date).days
-    is_repeat_purchase = models.Order.objects.filter(client_id=client.id, product_id=product.id).exists()
-    client_product_claim_count = models.Claim.objects.filter(client_id=client.id, product_id=product.id).count()
-    client_product_purchase_count = models.Order.objects.filter(client_id=client.id, product_id=product.id).count()
-    has_claim = models.Claim.objects.filter(client_id=client.id, product_id=product.id).exists()
-    
-    features = [
-        product.price,
-        product.warranty,
-        client.address,  # Assuming address is a string, you might need to encode it
-		product.brand,
-		client_purchase_count,
-		client_claim_count,
-		product_info_length,
-		order_date.year,  # Example: using year as a feature
+	# Example: Prepare features for prediction
+	region = client.address.split(',')[-1].strip() if client.address else ""
+	category = product.category
+	warranty = product.warranty
+	product_quality = 6
+	previous_repairs = product.previous_repairs
+	product_age_days = (timezone.now().date() - product.manufacture_date).days
+	days_since_purchase = (timezone.now().date() - models.Order.objects.get(client=client, product=product).order_date).days
+	total_brand_claims = models.Claim.objects.filter(product__brand=product.brand).count()
+	brand_defect_rate = total_brand_claims / models.Order.objects.filter(product__brand=product.brand).count() if models.Order.objects.filter(product__brand=product.brand).count() > 0 else 0
+	category_defect_rate = models.Claim.objects.filter(product__category=product.category).count() / models.Order.objects.filter(product__category=product.category).count() if models.Order.objects.filter(product__category=product.category).count() > 0 else 0
+	client_total_purchases = models.Order.objects.filter(client=client).count()
+	client_total_claims = models.Claim.objects.filter(client=client).count()
+	client_claim_ratio = client_total_claims / client_total_purchases if client_total_purchases > 0 else 0
+	time_to_first_claim = (timezone.now().date() - models.Claim.objects.filter(client=client, product=product).order_by('claim_date').first().claim_date).days if models.Claim.objects.filter(client=client, product=product).exists() else 0
+
+	features = [
+		region,
+		category,
+		warranty,
+		product_quality,
+		previous_repairs,
+		product_age_days,
 		days_since_purchase,
-		is_repeat_purchase,
-		client_product_claim_count,
-		client_product_purchase_count,
-		has_claim
-    ]
-    features = np.array([features])
+		total_brand_claims,
+		brand_defect_rate,
+		category_defect_rate,
+		client_total_purchases,
+		client_total_claims,
+		client_claim_ratio,
+		time_to_first_claim
+	]
+	features = np.array([features])
 
-    proba = catboost_model.predict_proba(features)[0][1]  # Probability of class 1 (claim)
-    likelihood_percent = round(proba * 100, 2)
-    return HttpResponse(f"Likelihood of warranty claim: {likelihood_percent}%")
+	proba = claim_catboost_model.predict_proba(features)[0][1]  # Probability of class 1 (claim)
+	likelihood_percent = round(proba * 100, 2)
+	return HttpResponse(f"Likelihood of warranty claim: {likelihood_percent}%")
+
+
+def predict_product_defect(request, product_id):
+	try:
+		client = models.session.get('client_id')
+		product = models.Product.objects.get(id=product_id)
+	except models.Product.DoesNotExist:
+		return HttpResponse("Product not found", status=404)
+
+	# Example: Prepare features for prediction
+	region = client.address.split(',')[-1].strip() if client.address else ""
+	category = product.category
+	warranty = product.warranty
+	product_quality = 6  # Example value, adjust as needed
+	previous_repairs = product.previous_repairs
+	product_age_days = (timezone.now().date() - product.manufacture_date).days
+	days_since_purchase = (timezone.now().date() - models.Order.objects.get(client=client, product=product).order_date).days
+	total_brand_claims = models.Claim.objects.filter(product__brand=product.brand).count()
+	brand_defect_rate = total_brand_claims / models.Order.objects.filter(product__brand=product.brand).count() if models.Order.objects.filter(product__brand=product.brand).count() > 0 else 0
+	category_defect_rate = models.Claim.objects.filter(product__category=product.category).count() / models.Order.objects.filter(product__category=product.category).count() if models.Order.objects.filter(product__category=product.category).count() > 0 else 0
+	client_total_purchases = models.Order.objects.filter(client=client).count()
+	client_total_claims = models.Claim.objects.filter(client=client).count()
+	price_to_warranty_ratio = product.price / product.warranty if product.warranty > 0 else 0
+	repairs_per_year = product.previous_repairs / (product_age_days / 365) if product_age_days > 0 else 0
+
+	features = [
+		region,
+		category,
+		warranty,
+		product_quality,
+		previous_repairs,
+		product_age_days,
+		days_since_purchase,
+		total_brand_claims,
+		brand_defect_rate,
+		category_defect_rate,
+		client_total_purchases,
+		client_total_claims,
+		price_to_warranty_ratio,
+		repairs_per_year
+	]
+	features = np.array([features])
+	proba = defect_catboost_model.predict_proba(features)[0][1]  # Probability of defect
+	defect_percent = round(proba * 100, 2)
+	return HttpResponse(f"Likelihood of product defect: {defect_percent}%")
 
 # Create your views here.
 def index(request):
@@ -89,7 +141,7 @@ def auth(request):
 			client = models.Client.objects.get(email=email)
 			if client:
 				request.session['client_id'] = client.id
-				return HttpResponse(f"Welcome back, {client.name}!")
+				return redirect('dashboard')
 			else:
 				return HttpResponse("Client not found", status=404)
 		elif request.POST.get('action') == 'sign_up':
@@ -100,9 +152,20 @@ def auth(request):
 			client = models.Client(name=name, email=email, phone=phone, address=address)
 			client.save()
 			request.session['client_id'] = client.id
-			return HttpResponse(f"Client {client.name} created successfully!")
+			return redirect('dashboard')
 	else:
 		return HttpResponse("Method not allowed", status=405)
+
+
+def dashboard(request):
+	client_id = request.session.get('client_id')
+	if not client_id:
+		return redirect('sign')
+	try:
+		client = models.Client.objects.get(id=client_id)
+	except models.Client.DoesNotExist:
+		return redirect('sign')
+	return render(request, 'dashboard.html')
 	
 def purchase(request):
 	if request.method == 'POST':

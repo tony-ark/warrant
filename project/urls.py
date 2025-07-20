@@ -8,6 +8,7 @@ urlpatterns = [
     path('contact/',views.contact, name='contact'),
     path('sign/',views.sign, name='sign'),
     path('auth/', views.auth, name='auth'),
+    path('dashboard/', views.dashboard, name='dashboard'),
     path('product/<int:product_id>/', views.product, name='product'),
     path('purchase/', views.purchase, name='purchase'),
     path('predict_claim/<int:product_id>/', views.predict_claim_likelihood, name='predict_claim'),

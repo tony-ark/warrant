@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h2>Welcome, {{ user.name }}!</h2>
+    <h3>Your Claims</h3>
+    {% if claims %}
+        <table class="claims-table">
+            <thead>
+                <tr>
+                    <th>Claim ID</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for claim in claims %}
+                <tr>
+                    <td>{{ claim.id }}</td>
+                    <td>{{ claim.date }}</td>
+                    <td>{{ claim.status }}</td>
+                    <td>{{ claim.description }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You have no claims yet.</p>
+    {% endif %}
+    <a href="/logout/">Logout</a>
+</div>
+{% endblock %}
